@@ -1,0 +1,67 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customerService" class="com.shiyanlou.spring.entity.CustomerService">
+        <property name="name" value="Shiyanlou"/>
+        <property name="url" value="http://shiyanlou.com"/>
+    </bean>
+
+    <bean id="hijackBeforeMethod" class="com.shiyanlou.spring.advice.HijackBeforeMethod"/>
+    <bean id="hijackAfterMethod" class="com.shiyanlou.spring.advice.HijackAfterMethod"/>
+    <bean id="hijackThrowExceptionMethod" class="com.shiyanlou.spring.advice.HijackThrowExceptionMethod"/>
+    <bean id="hijackAroundMethod" class="com.shiyanlou.spring.advice.HijackAroundMethod"/>
+
+    <!--    根据方法名拦截-->
+    <!--    <bean id="customerPointcut" class="org.springframework.aop.support.NameMatchMethodPointcut">-->
+    <!--        <property name="mappedName" value="printName"/>-->
+    <!--    </bean>-->
+
+    <!--    PointCut和Advisor可以一起定义-->
+    <bean id="customerAdvisor1" class="org.springframework.aop.support.NameMatchMethodPointcutAdvisor">
+        <property name="mappedName" value="printName"/>
+        <property name="advice" ref="hijackBeforeMethod"/>
+    </bean>
+
+    <!--    利用正则拦截方法-->
+    <bean id="customerAdvisor2" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="patterns">
+            <list>
+                <value>.*Url.*</value>
+            </list>
+        </property>
+        <property name="advice" ref="hijackBeforeMethod"/>
+    </bean>
+
+    <!--    根据beanName自动创建-->
+    <bean class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">
+        <property name="beanNames">
+            <list>
+                <value>*Service</value>
+            </list>
+        </property>
+        <property name="interceptorNames">
+            <list>
+                <value>customerAdvisor2</value>
+            </list>
+        </property>
+    </bean>
+
+    <!--    手动创建ProFactoryBean-->
+    <bean id="customerServiceProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+        <property name="target" ref="customerService"/>
+        <property name="interceptorNames">
+            <list>
+                <!--                <value>hijackBeforeMethod</value>-->
+                <!--                <value>hijackAfterMethod</value>-->
+                <!--                <value>hijackThrowExceptionMethod</value>-->
+                <!--                <value>hijackAroundMethod</value>-->
+                <!--                <value>customerAdvisor</value>-->
+                <value>customerAdvisor2</value>
+            </list>
+        </property>
+    </bean>
+
+</beans>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/context
+            http://www.springframework.org/schema/context/spring-context.xsd
+            http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!--自动装配Bean，默认no，通过property的ref指定-->
+    <!--    <bean id="customerService" class="com.shiyanlou.spring.services.CustomerService">-->
+    <!--        <property name="CustomerDao" ref="customerDAO" />-->
+    <!--    </bean>-->
+    <!--    <bean id="customerDAO" class="com.shiyanlou.spring.dao.CustomerDao" />-->
+
+    <!--    byName，Bean的name和Customer中的属性名要一致-->
+    <!--    <bean id="customerService" class="com.shiyanlou.spring.services.CustomerService" autowire="byName"/>-->
+    <!--    <bean id="customerDao" class="com.shiyanlou.spring.dao.CustomerDao"/>-->
+
+    <!--    byName，根据Bean的类型-->
+    <!--    <bean id="customerService" class="com.shiyanlou.spring.services.CustomerService" autowire="byType"/>-->
+    <!--    <bean id="customerDao" class="com.shiyanlou.spring.dao.CustomerDao"/>-->
+
+    <!--    constructor 寻找数据类型相同的Bean，再通过构造函数注入-->
+    <!--        <bean id="customerService" class="com.shiyanlou.spring.services.CustomerService" autowire="constructor"/>-->
+    <!--        <bean id="customerDao" class="com.shiyanlou.spring.dao.CustomerDao"/>-->
+
+    <!--    <context:component-scan base-package="com.shiyanlou.spring">-->
+    <!--        <context:include-filter type="regex" expression="com.shiyanlou.spring.dao.*Dao.*"/>-->
+    <!--        <context:include-filter type="regex" expression="com.shiyanlou.spring.services.*Service.*"/>-->
+    <!--    </context:component-scan>-->
+
+</beans>
