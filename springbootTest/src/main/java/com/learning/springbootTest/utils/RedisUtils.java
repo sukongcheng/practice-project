@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("all")
 public class RedisUtils {
 
+    final String a = "";
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
 

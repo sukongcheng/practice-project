@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.kongcheng.user.mapper.UserMapper">
+
+    <insert id="save" parameterType="com.kongcheng.user.entity.User" useGeneratedKeys="true">
+        insert into `user` (account, password, nickname)
+        values (#{account}, #{password}, #{nickname})
+    </insert>
+
+    <select id="findById" parameterType="long" resultType="com.kongcheng.user.entity.User">
+        select * from `user` where id = #{id}
+    </select>
+
+    <update id="update" parameterType="com.kongcheng.user.entity.User">
+        update `user`
+        <set>
+            <if test="nickname != null and nickname != ''">
+                nickname = #{nickname}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        delete from `user` where id = #{id}
+    </delete>
+
+    <select id="list" resultType="com.kongcheng.user.entity.User">
+        select * from `user`
+    </select>
+</mapper>
+    
